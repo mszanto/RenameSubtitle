@@ -30,6 +30,7 @@ namespace RenameSubTitle
         private ObservableCollection<string> ListItemsVideo = new ObservableCollection<string>();
         private ObservableCollection<string> ListItemsSub = new ObservableCollection<string>();
         BindingClass binding = new BindingClass();
+        FrameworkElement fe = new FrameworkElement();
 
         public MainWindow()
         {
@@ -47,8 +48,26 @@ namespace RenameSubTitle
             lbVideo.ItemsSource = this.ListItemsVideo;
             lbSub.ItemsSource = this.ListItemsSub;
             LoadVideo(currentDirectory);
-            LoadSub(currentDirectory);            
+            LoadSub(currentDirectory);
+            InitializeContextMenu();
         }
+
+        private void InitializeContextMenu()
+        {            
+            var miVideo = new System.Windows.Controls.MenuItem();
+            miVideo.Header = "Delete All";
+            miVideo.Click += mi_Click;
+            fe.ContextMenu = new System.Windows.Controls.ContextMenu();
+            fe.ContextMenu.Items.Add(miVideo);
+            lbVideo.ContextMenu = fe.ContextMenu;
+
+            var miSub = new System.Windows.Controls.MenuItem();
+            miSub.Header = "Delete All";
+            miSub.Click += miVideo_Click;
+            fe.ContextMenu = new System.Windows.Controls.ContextMenu();
+            fe.ContextMenu.Items.Add(miSub);
+            lbSub.ContextMenu = fe.ContextMenu;            
+        }        
 
         private void btLoadVideo_Click(object sender, RoutedEventArgs e)
         {            
@@ -57,7 +76,7 @@ namespace RenameSubTitle
 
         private void btLoadSub_Click(object sender, RoutedEventArgs e)
         {            
-            LoadSub("");
+            LoadSub("", true, true);
         }
 
         public void LoadVideo(string directory, bool add = false, bool isDirectory = false)
@@ -100,12 +119,18 @@ namespace RenameSubTitle
             RefreshVideoFiles();
         }
 
-        public void LoadSub(string directory, bool add = false)
+        public void LoadSub(string directory, bool add = false, bool isDirectory = false)
         {
             if (!add)
             {
                 subFullPath.Clear();
                 subFiles.Clear();
+            }
+            if (isDirectory)
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    directory = dialog.SelectedPath;
             }
             if (directory != string.Empty)
             {
@@ -196,9 +221,7 @@ namespace RenameSubTitle
                         DialogBox dialog = new DialogBox("Ilyen feliratfájl már létezik ezzel a névvel:\n" + dirName + "\\" + name[i] + ".srt");
                         dialog.DataContext = binding;
                         dialog.ShowDialog();
-                    }
-                    /*System.Windows.MessageBox.Show("Ilyen feliratfájl már létezik ezzel a névvel: " + dirName + "\\" + name[i] + ".srt",
-                        "Már létezik", MessageBoxButton.OK, MessageBoxImage.Warning);*/
+                    }                    
                     continue;
                 }
                 else
@@ -377,6 +400,22 @@ namespace RenameSubTitle
         private void btAddSub_Click(object sender, RoutedEventArgs e)
         {
             LoadSub("", true);
+        }                
+
+        void mi_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = this.ListItemsVideo.Count-1; i >= 0; i--)
+            {
+                DeleteVideo(i);
+            }    
+        }
+
+        void miVideo_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = this.ListItemsSub.Count - 1; i >= 0; i--)
+            {
+                DeleteSubtitle(i);
+            }  
         }
     }
 }

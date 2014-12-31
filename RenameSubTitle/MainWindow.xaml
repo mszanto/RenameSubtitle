@@ -5,9 +5,9 @@
     <Grid>
         <ListBox Height="258" HorizontalAlignment="Left" Margin="16,55,0,0" Name="lbVideo" VerticalAlignment="Top" Width="368" KeyDown="lbVideo_KeyDown"></ListBox>
         <ListBox Height="258" HorizontalAlignment="Left" Margin="461,55,0,0" Name="lbSub" VerticalAlignment="Top" Width="368" KeyDown="lbSub_KeyDown" />
-        <Button Content="Load video files" Height="23" HorizontalAlignment="Left" Margin="224,19,0,0" Name="btLoadVideo" VerticalAlignment="Top" Width="99" Click="btLoadVideo_Click" />
+        <Button Content="Add video folders" Height="23" HorizontalAlignment="Left" Margin="224,19,0,0" Name="btLoadVideo" VerticalAlignment="Top" Width="105" Click="btLoadVideo_Click" />
         <Button Content="Add video files" Height="23" HorizontalAlignment="Left" Margin="75,19,0,0" Name="btAddVideo" VerticalAlignment="Top" Width="99" Click="btAddVideo_Click" />
-        <Button Content="Load subtitles" Height="23" HorizontalAlignment="Left" Margin="668,19,0,0" Name="btLoadSub" VerticalAlignment="Top" Width="99" Click="btLoadSub_Click" />
+        <Button Content="Add subtitle folders" Height="23" HorizontalAlignment="Left" Margin="668,19,0,0" Name="btLoadSub" VerticalAlignment="Top" Width="116" Click="btLoadSub_Click" />
         <Button Content="Add subtitles" Height="23" HorizontalAlignment="Left" Margin="519,19,0,0" Name="btAddSub" VerticalAlignment="Top" Width="99" Click="btAddSub_Click" />
         <Button Content="Rename" Height="30" HorizontalAlignment="Left" Margin="390,161,0,0" Name="btRename" VerticalAlignment="Top" Width="65" Click="btRename_Click" />
         <Button FontFamily="Marlett" FontSize="20" Content="5" Height="26" HorizontalAlignment="Left" Margin="224,325,0,0" Name="btVideoUp" VerticalAlignment="Top" Width="26" Click="btVideoUp_Click" />
